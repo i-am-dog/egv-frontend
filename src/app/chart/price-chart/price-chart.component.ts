@@ -31,6 +31,7 @@ export class PriceChartComponent implements OnInit {
   ngOnInit(): void {
     this.chartOptions.title.text = 'FARM Price';
     this.chartOptions.series[0].name = 'Price';
+    this.chartOptions.series[0].color = '#dddddd';
     this.priceService.getHistoryData().subscribe(data => {
       Utils.loadingOff();
       this.log.info('data got', data);
