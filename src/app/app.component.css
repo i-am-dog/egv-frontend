@@ -1,0 +1,15 @@
+div.inline { float:left; }
+.clearBoth { clear:both; }
+
+.caption {
+  float:left;
+  width: 50%;
+  color: #ffffff;
+
+  font-size: 7em;
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
