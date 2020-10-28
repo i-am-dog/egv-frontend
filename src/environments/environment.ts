@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // wsEndpoint: 'http://localhost:4140/stomp',
+  wsEndpoint: 'http://52.213.152.238:4141/stomp',
+  wsReconnectInterval: 15
 };
 
 /*

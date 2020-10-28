@@ -1,18 +1,66 @@
-<div>
-  <div class="inline" style="height: 800px; width: 50%; color: #ffffff">
-    <app-gas-chart></app-gas-chart>
-  </div>
-  <div class="inline" style="height: 800px; width: 50%; color: #ffffff">
-    <app-price-chart></app-price-chart>
-  </div>
+<!--<div>-->
+<!--  <div class="inline" style="height: 500px; width: 50%; color: #ffffff">-->
+<!--    &lt;!&ndash;    <app-gas-chart></app-gas-chart>&ndash;&gt;-->
+<!--    <app-uni-tx></app-uni-tx>-->
+<!--  </div>-->
+<!--  <div class="inline" style="height: 500px; width: 50%; color: #ffffff">-->
+<!--    <app-price-chart></app-price-chart>-->
+<!--    <div class="caption">-->
+<!--      {{lastGasValue}}-->
+<!--    </div>-->
+<!--    <div class="caption">-->
+<!--      <table>-->
+<!--        <tr>-->
+<!--          <td class="caption-font-small">Farm Price</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class="caption-font">{{lastPrice}}</td>-->
+<!--        </tr>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--  </div>-->
 
-</div>
+<!--</div>-->
 
-<div>
-  <div class="caption">
-    {{lastGasValue}}
-  </div>
-  <div class="caption">
-    {{lastPrice}}
-  </div>
-</div>
+<table style="width: 100%; height: 100%;">
+  <tr>
+    <td style="width: 50%;">
+      <app-uni-tx></app-uni-tx>
+    </td>
+    <td style="width: 50%;">
+
+      <table style="width: 100%;">
+
+        <tr>
+          <td colspan="2">
+            <div style="height: 700px">
+              <app-price-chart></app-price-chart>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="caption-font-small">Gas</td>
+          <td class="caption-font-small">Farm Price</td>
+        </tr>
+        <tr>
+          <td class="caption-font">{{lastGasValue}}</td>
+          <td class="caption-font">{{lastPrice}}</td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2">
+      <div class="flex-container">
+    <span>
+      <a href="https://github.com/belbix/egv-backend" style="color: white; margin-right: 10px">Github Repository</a>
+      Creator <a href="https://t.me/belbix" style="color: white">belbix</a>
+    </span>
+      </div>
+    </td>
+  </tr>
+</table>
