@@ -20,8 +20,8 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
   }
 
   setSubscribed(s: boolean): void {
-        this.subscribed = s;
-    }
+    this.subscribed = s;
+  }
 
   isSubscribed(): boolean {
     return this.subscribed;
@@ -46,7 +46,9 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
         } else {
           this.addInArray(this.transactionsBig, tx);
         }
-        UniTxComponent.lastPrice = tx.lastPrice;
+        if (tx.confirmed && tx.lastPrice !== 0) {
+          UniTxComponent.lastPrice = tx.lastPrice;
+        }
         UniTxComponent.lastGas = tx.lastGas;
       });
   }
