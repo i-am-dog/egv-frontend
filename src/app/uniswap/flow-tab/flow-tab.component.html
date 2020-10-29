@@ -5,23 +5,25 @@
         <td style="width: 100%">
           <table>
             <tr
-              [ngStyle]="{'color': tx.confirmed ? tx.type === 'BUY' ? '#83b78c': tx.type === 'SELL' ? '#c15b5b':'#ffffff' : '#474646'}">
+              [ngStyle]="{'color': tx.confirmed ?
+              tx.type === 'BUY' ? '#83b78c':
+              tx.type === 'SELL' ? '#c15b5b':
+              tx.type === 'add_liq' ? '#83b78c':
+              tx.type === 'remove_liq' ? '#c15b5b':
+              '#ffffff'
+              : '#474646'}">
               <td>{{tx.acquired | date: 'hh:mm:ss'}}</td>
+
               <td>
-                <div *ngIf="tx.type === 'BUY'; then thenBlock else elseBlock"></div>
-                <ng-template #thenBlock>
-                  <mat-icon aria-hidden="false" aria-label="BUY" [ngStyle]="{'color': '#3bbf31'}">trending_up</mat-icon>
-                </ng-template>
-                <ng-template #elseBlock>
-                  <div *ngIf="tx.type === 'SELL'; then thenBlock else elseBlock"></div>
-                  <ng-template #thenBlock>
-                  <mat-icon aria-hidden="false" aria-label="SELL" [ngStyle]="{'color': '#c62222'}">trending_down</mat-icon>
-                  </ng-template>
-                  <ng-template #elseBlock>
-                    <mat-icon aria-hidden="false" aria-label="LIQ" [ngStyle]="{'color': '#1178e2'}">import_export</mat-icon>
-                  </ng-template>
-                </ng-template>
+                <container-element [ngSwitch]="tx.type">
+                  <mat-icon *ngSwitchCase="'BUY'" aria-hidden="false" aria-label="BUY" [ngStyle]="{'color': '#3bbf31'}">trending_up</mat-icon>
+                  <mat-icon *ngSwitchCase="'SELL'" aria-hidden="false" aria-label="SELL" [ngStyle]="{'color': '#c62222'}">trending_down</mat-icon>
+                  <mat-icon *ngSwitchCase="'add_liq'" aria-hidden="false" aria-label="ADD_LIQ" [ngStyle]="{'color': '#3bbf31'}">import_export</mat-icon>
+                  <mat-icon *ngSwitchCase="'remove_liq'" aria-hidden="false" aria-label="ADD_LIQ" [ngStyle]="{'color': '#c62222'}">import_export</mat-icon>
+                  <mat-icon *ngSwitchDefault aria-hidden="false" aria-label="ADD_LIQ" [ngStyle]="{'color': '#3b71c1'}">help</mat-icon>
+                </container-element>
               </td>
+
               <td>{{tx.amount}}</td>
               <td>{{tx.coin}}</td>
               <td>for {{tx.otherAmount}}</td>
