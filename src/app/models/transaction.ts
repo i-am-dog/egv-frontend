@@ -1,5 +1,3 @@
-import {Timestamp} from 'rxjs/internal-compatibility';
-
 export class Transaction {
   type: string;
   coin: string;
@@ -8,6 +6,7 @@ export class Transaction {
   otherAmount: number;
   ethAmount: number;
   hash: string;
+  block: string;
   confirmed: boolean;
   lastPrice: number;
   lastGas: number;
@@ -23,6 +22,7 @@ export class Transaction {
     tx.otherAmount = jsonData.otherAmount;
     tx.ethAmount = jsonData.ethAmount;
     tx.hash = jsonData.hash;
+    tx.block = jsonData.block;
     tx.confirmed = jsonData.confirmed;
     tx.lastPrice = jsonData.lastPrice;
     tx.lastGas = jsonData.lastGas;
@@ -37,5 +37,8 @@ export class Transaction {
     tx.otherAmount = Number(tx.otherAmount?.toFixed(2));
     tx.lastPrice = Number(tx.lastPrice?.toFixed(2));
     tx.lastGas = Number(tx.lastGas?.toFixed(0));
+    if (tx.acquired == null) {
+      tx.acquired = new Date();
+    }
   }
 }
