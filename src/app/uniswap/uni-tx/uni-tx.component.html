@@ -14,47 +14,10 @@
   <tr>
     <td style="width: 50%;">
 
-      <perfect-scrollbar style="max-height: 800px; overflow-y:auto; margin: 10px;">
-        <div class="flex-container">
-          <table>
-            <tr *ngFor="let tx of transactions.reverse()" style="width: 100% !important;">
-              <td style="width: 100%">
-
-      <span [ngStyle]="{'color': tx.confirmed ? '#ffffff' : '#474646'}">
-        {{tx.type}}
-        {{tx.amount}}
-        {{tx.coin}}
-        for {{tx.otherAmount}}
-        {{tx.otherCoin}}
-        <a target="_blank" href="https://etherscan.io/tx/{{tx.hash}}" style="color: antiquewhite">tx</a>
-      </span>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </perfect-scrollbar>
+      <app-flow-tab [transactions]="transactions"></app-flow-tab>
     </td>
     <td style="width: 50%;">
-
-      <perfect-scrollbar style="max-height: 800px; overflow-y:auto; margin: 10px;">
-        <div class="flex-container">
-          <table>
-            <tr *ngFor="let tx of transactionsBig.reverse()" style="width: 100% !important;">
-              <td style="width: 100%">
-
-      <span [ngStyle]="{'color': tx.confirmed ? '#ffffff' : '#474646'}">
-        {{tx.type}}
-        {{tx.amount}}
-        {{tx.coin}}
-        for {{tx.otherAmount}}
-        {{tx.otherCoin}}
-        <a target="_blank" href="https://etherscan.io/tx/{{tx.hash}}" style="color: antiquewhite">tx</a>
-      </span>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </perfect-scrollbar>
+      <app-flow-tab [transactions]="transactionsBig"></app-flow-tab>
     </td>
   </tr>
 </table>

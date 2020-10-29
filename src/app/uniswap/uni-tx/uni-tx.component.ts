@@ -9,12 +9,22 @@ import {WsConsumer} from '../../services/ws-consumer';
   styleUrls: ['./uni-tx.component.css']
 })
 export class UniTxComponent implements AfterViewInit, WsConsumer {
+  static lastPrice = 0;
+  static lastGas = 0;
   private maxMessages = 500;
   transactions: Transaction[] = [];
   transactionsBig: Transaction[] = [];
-  lastPrice = 0;
+  subscribed = false;
 
   constructor(private ws: WebsocketService) {
+  }
+
+  setSubscribed(s: boolean): void {
+        this.subscribed = s;
+    }
+
+  isSubscribed(): boolean {
+    return this.subscribed;
   }
 
   ngAfterViewInit(): void {
@@ -22,25 +32,29 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
   }
 
   public initWs(): void {
-    this.ws.onMessage('/topic/transactions', this, (m => Transaction.fromJson(m.body)))
+    if (this.ws.registerConsumer(this) && !this.subscribed) {
+      this.subscribeToTopic();
+    }
+  }
+
+  public subscribeToTopic(): void {
+    this.subscribed = true;
+    this.ws.onMessage('/topic/transactions', (m => Transaction.fromJson(m.body)))
       .subscribe(tx => {
         if (tx.amount < 1000) {
-          this.transactions.push(tx);
-          if (this.transactions.length > this.maxMessages) {
-            this.transactions.shift();
-          }
+          this.addInArray(this.transactions, tx);
         } else {
-          this.transactionsBig.push(tx);
-          if (this.transactionsBig.length > this.maxMessages) {
-            this.transactionsBig.shift();
-          }
+          this.addInArray(this.transactionsBig, tx);
         }
-        this.lastPrice = tx.lastPrice;
+        UniTxComponent.lastPrice = tx.lastPrice;
+        UniTxComponent.lastGas = tx.lastGas;
       });
   }
 
-  public getLastPrice(): number {
-    return this.lastPrice;
+  private addInArray(arr: Transaction[], tx: Transaction): void {
+    arr.unshift(tx);
+    if (arr.length > this.maxMessages) {
+      arr.pop();
+    }
   }
-
 }

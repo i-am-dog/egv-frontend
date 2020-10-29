@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {GasChartComponent} from './chart/gasChart.component';
 import {PriceChartComponent} from './chart/price-chart/price-chart.component';
+import {UniTxComponent} from './uniswap/uni-tx/uni-tx.component';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,11 @@ import {PriceChartComponent} from './chart/price-chart/price-chart.component';
 export class AppComponent {
   title = 'ethgasviewer-front';
 
-  get lastGasValue(): number {
-    return GasChartComponent.lastAverageGas / 10;
+  get lastGas(): string {
+    return UniTxComponent.lastGas?.toFixed(0);
   }
 
-  get lastPrice(): number {
-    return PriceChartComponent.lastPrice.toFixed(2);
+  get lastPrice(): string {
+    return UniTxComponent.lastPrice?.toFixed(2);
   }
 }

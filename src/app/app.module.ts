@@ -12,6 +12,9 @@ import {PriceChartComponent} from './chart/price-chart/price-chart.component';
 import {UniTxComponent} from './uniswap/uni-tx/uni-tx.component';
 import {MatCardModule} from '@angular/material/card';
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
+import { FlowTabComponent } from './uniswap/flow-tab/flow-tab.component';
+import { LastValuesComponent } from './chart/last-values/last-values.component';
+import {MatIconModule} from '@angular/material/icon';
 
 declare var require: any;
 
@@ -24,7 +27,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppComponent,
     GasChartComponent,
     PriceChartComponent,
-    UniTxComponent
+    UniTxComponent,
+    FlowTabComponent,
+    LastValuesComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     }),
     BrowserAnimationsModule,
     MatCardModule,
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    MatIconModule
   ],
   providers: [ {
     provide: PERFECT_SCROLLBAR_CONFIG,

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // wsEndpoint: 'http://localhost:4140/stomp',
-  wsEndpoint: 'http://52.213.152.238:4141/stomp',
+  wsEndpoint: 'http://localhost:4140/stomp',
+  // wsEndpoint: 'http://52.213.152.238:4141/stomp',
   wsReconnectInterval: 15
 };
 

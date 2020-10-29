@@ -21,7 +21,7 @@ export class WebsocketService implements OnDestroy {
   private client: Client;
   private state: BehaviorSubject<SocketClientState>;
   private recTimeout = null;
-  private consumers: WsConsumer[] = [];
+  private consumers = new Set<WsConsumer>();
 
   constructor() {
     this.connectSockJs();
@@ -33,12 +33,19 @@ export class WebsocketService implements OnDestroy {
 
   private connectSockJs(): void {
     this.client = over(new SockJS(WS_ENDPOINT));
+    this.client.debug = null;
+    this.client.reconnect_delay = 2000;
     this.state = new BehaviorSubject<SocketClientState>(SocketClientState.ATTEMPTING);
     this.client.connect({}, () => {
       this.state.next(SocketClientState.CONNECTED);
       clearTimeout(this.recTimeout);
-      this.consumers.forEach(c => c.initWs());
+      this.consumers.forEach(c => {
+        if (!c.isSubscribed()) {
+          c.subscribeToTopic();
+        }
+      });
     }, () => {
+      this.consumers.forEach(c => c.setSubscribed(false));
       this.recTimeout = setTimeout(() => {
         this.connectSockJs();
       }, 5000);
@@ -58,10 +65,19 @@ export class WebsocketService implements OnDestroy {
     this.connect().pipe(first()).subscribe(inst => inst.disconnect(null));
   }
 
-  onMessage(topic: string, wsConsumer: WsConsumer,  handler = WebsocketService.jsonHandler): Observable<any> {
-    this.consumers.push(wsConsumer);
+  registerConsumer(wsConsumer: WsConsumer): boolean {
+    if (this.consumers.has(wsConsumer)) {
+      return false;
+    }
+    this.consumers.add(wsConsumer);
+    console.log('Ws consumers: ' + this.consumers.size);
+    return true;
+  }
+
+  onMessage(topic: string, handler = WebsocketService.jsonHandler): Observable<any> {
     return this.connect().pipe(first(), switchMap(inst => {
       return new Observable<any>(observer => {
+        inst.unsubscribe(topic);
         const subscription: StompSubscription = inst.subscribe(topic, message => {
           observer.next(handler(message));
         });

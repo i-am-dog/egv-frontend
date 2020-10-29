@@ -1,0 +1,21 @@
+div.inline { float:left; }
+.clearBoth { clear:both; }
+
+.caption {
+  /*float:left;*/
+  /*width: 50%;*/
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+}
+
+.caption-font {
+  color: #ffffff;
+  font-size: 7em;
+  height: 100px;
+}
+
+.caption-font-small {
+  color: #ffffff;
+  font-size: 2em;
+}

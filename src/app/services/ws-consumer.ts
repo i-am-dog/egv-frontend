@@ -1,3 +1,5 @@
 export interface WsConsumer {
-  initWs(): void;
+  subscribeToTopic(): void;
+  isSubscribed(): boolean;
+  setSubscribed(s: boolean): void;
 }

@@ -1,3 +1,5 @@
+import {Timestamp} from 'rxjs/internal-compatibility';
+
 export class Transaction {
   type: string;
   coin: string;
@@ -8,6 +10,8 @@ export class Transaction {
   hash: string;
   confirmed: boolean;
   lastPrice: number;
+  lastGas: number;
+  acquired: Date;
 
   public static fromJson(data: string): Transaction {
     const jsonData = JSON.parse(data);
@@ -21,6 +25,8 @@ export class Transaction {
     tx.hash = jsonData.hash;
     tx.confirmed = jsonData.confirmed;
     tx.lastPrice = jsonData.lastPrice;
+    tx.lastGas = jsonData.lastGas;
+    tx.acquired = new Date();
     return tx;
   }
 }
