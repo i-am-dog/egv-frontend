@@ -2,6 +2,9 @@ import {AfterViewInit, Component} from '@angular/core';
 import {WebsocketService} from '../../services/websocket.service';
 import {Transaction} from '../../models/transaction';
 import {WsConsumer} from '../../services/ws-consumer';
+import {Utils} from '../../utils';
+import {TxHistoryService} from '../../services/tx-history.service';
+import {NGXLogger} from 'ngx-logger';
 
 @Component({
   selector: 'app-uni-tx',
@@ -16,7 +19,7 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
   transactionsBig: Transaction[] = [];
   subscribed = false;
 
-  constructor(private ws: WebsocketService) {
+  constructor(private ws: WebsocketService, private txHistory: TxHistoryService, private log: NGXLogger) {
   }
 
   setSubscribed(s: boolean): void {
@@ -28,6 +31,20 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
   }
 
   ngAfterViewInit(): void {
+    this.txHistory.getHistoryData().subscribe(data => {
+      Utils.loadingOff();
+      this.log.info('tx data fetched', data);
+      data.forEach(tx => {
+        Transaction.round(tx);
+        if (tx.amount < 1000) {
+          this.addInArray(this.transactions, tx);
+        } else {
+          this.addInArray(this.transactionsBig, tx);
+        }
+      });
+    }, err => {
+      Utils.loadingOff();
+    });
     this.initWs();
   }
 

@@ -11,11 +11,11 @@ import {UniTxComponent} from './uniswap/uni-tx/uni-tx.component';
 export class AppComponent {
   title = 'ethgasviewer-front';
 
-  get lastGas(): string {
-    return UniTxComponent.lastGas?.toFixed(0);
+  get lastGas(): number {
+    return UniTxComponent.lastGas;
   }
 
-  get lastPrice(): string {
-    return UniTxComponent.lastPrice?.toFixed(2);
+  get lastPrice(): number {
+    return UniTxComponent.lastPrice;
   }
 }

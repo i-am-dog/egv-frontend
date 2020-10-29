@@ -18,15 +18,24 @@ export class Transaction {
     const tx: Transaction = new Transaction();
     tx.type = jsonData.type;
     tx.coin = jsonData.coin;
-    tx.amount = jsonData.amount.toFixed(2);
-    tx.otherCoin = jsonData.otherCoin.substring(0, 6);
-    tx.otherAmount = jsonData.otherAmount.toFixed(2);
+    tx.amount = jsonData.amount;
+    tx.otherCoin = jsonData.otherCoin;
+    tx.otherAmount = jsonData.otherAmount;
     tx.ethAmount = jsonData.ethAmount;
     tx.hash = jsonData.hash;
     tx.confirmed = jsonData.confirmed;
     tx.lastPrice = jsonData.lastPrice;
     tx.lastGas = jsonData.lastGas;
     tx.acquired = new Date();
+    Transaction.round(tx);
     return tx;
+  }
+
+  public static round(tx: Transaction): void {
+    tx.amount = Number(tx.amount?.toFixed(2));
+    tx.otherCoin = tx.otherCoin?.substring(0, 6);
+    tx.otherAmount = Number(tx.otherAmount?.toFixed(2));
+    tx.lastPrice = Number(tx.lastPrice?.toFixed(2));
+    tx.lastGas = Number(tx.lastGas?.toFixed(0));
   }
 }
