@@ -13,7 +13,7 @@
               tx.type === 'remove_liq' ? '#c15b5b':
               '#ffffff'
               : '#474646'}">
-              <td><text style="font-size: 0.9em">{{tx.acquired | date: 'hh:mm:ss'}}</text></td>
+              <td><text style="font-size: 0.9em">{{tx.blockDate | date: 'hh:mm:ss'}}</text></td>
 
               <td>
                 <container-element [ngSwitch]="tx.type">

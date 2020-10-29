@@ -29,7 +29,7 @@ export class PriceChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chartOptions.title.text = 'FARM Price';
+    this.chartOptions.title.text = null;
     this.chartOptions.series[0].name = 'Price';
     this.chartOptions.series[0].color = '#dddddd';
     this.priceService.getHistoryData().subscribe(data => {

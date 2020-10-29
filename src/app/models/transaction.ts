@@ -11,6 +11,7 @@ export class Transaction {
   lastPrice: number;
   lastGas: number;
   acquired: Date;
+  blockDate = new Date(0);
 
   public static fromJson(data: string): Transaction {
     const jsonData = JSON.parse(data);
@@ -27,6 +28,7 @@ export class Transaction {
     tx.lastPrice = jsonData.lastPrice;
     tx.lastGas = jsonData.lastGas;
     tx.acquired = new Date();
+    tx.blockDate.setUTCSeconds(jsonData.blockDate);
     Transaction.round(tx);
     return tx;
   }
