@@ -1,13 +1,13 @@
 <perfect-scrollbar class="scroller" [ngStyle]="{'maxHeight': maxHeight+'px'}">
 
-  <table class="flow-tab-table" style="padding: 3px;">
+  <table class="flow-tab-table">
 
     <tr class="flow-tab-tr" *ngFor="let tx of transactions">
       <a target="_blank" href="https://etherscan.io/tx/{{tx.hash}}"
          style="text-decoration:none; font-size: 1.1em"
          [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">
         <td class="flow-tab-td">
-          <text style="font-size: 0.9em">{{tx.blockDate | date: 'hh:mm:ss'}}</text>
+          <p style="font-size: 0.9em">{{tx.blockDateAdopted | date: 'hh:mm:ss'}}</p>
         </td>
 
         <td class="flow-tab-td">
@@ -48,7 +48,6 @@
           </container-element>
 
         </td>
-        <td class="flow-tab-td" style="min-width: 30px"></td>
       </a>
     </tr>
 

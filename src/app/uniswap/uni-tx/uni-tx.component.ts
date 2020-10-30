@@ -38,6 +38,7 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
       this.log.info('tx data fetched', data);
       data.forEach(tx => {
         Transaction.round(tx);
+        UniTxComponent.lastPrice = tx.lastPrice;
         if (tx.amount < 1000) {
           this.addInArray(this.transactions, tx);
         } else {

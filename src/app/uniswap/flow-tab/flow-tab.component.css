@@ -3,7 +3,11 @@
   border-collapse: collapse;
 }
 
-flow-tab-td {
+.flow-tab-td {
   /*vertical-align:middle !important;*/
   /*display: inline;*/
+}
+
+.flow-tab-table {
+  /*widows: 100;*/
 }
