@@ -16,4 +16,36 @@ export class FlowTabComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  priceGradient(type: string, amount: number, success: boolean): string {
+    if (success) {
+      switch (type) {
+        case 'add_liq':
+        case 'BUY':
+          if (amount > 500) {
+            return '#83b78c';
+          } else if (amount > 250) {
+            return '#9ab7a0';
+          } else if (amount > 100) {
+            return '#788579';
+          } else {
+            return '#4b544c';
+          }
+        case 'SELL':
+        case 'remove_liq':
+          if (amount > 500) {
+            return '#c15b5b';
+          } else if (amount > 250) {
+            return '#8f5d5d';
+          } else if (amount > 100) {
+            return '#694545';
+          } else {
+            return '#583e3e';
+          }
+      }
+    } else {
+      return '#474646';
+    }
+    return '#ffffff';
+  }
+
 }

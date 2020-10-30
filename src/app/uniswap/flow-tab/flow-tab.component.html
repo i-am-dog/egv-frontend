@@ -1,56 +1,54 @@
 <perfect-scrollbar class="scroller" [ngStyle]="{'maxHeight': maxHeight+'px'}">
 
-    <table class="flow-tab-table" style="padding: 3px;">
+  <table class="flow-tab-table" style="padding: 3px;">
 
-      <tr class="flow-tab-tr" *ngFor="let tx of transactions">
-        <a target="_blank" href="https://etherscan.io/tx/{{tx.hash}}"
-           style="text-decoration:none; font-size: 1.1em"
-           [ngStyle]="{'color': tx.confirmed ?
-              tx.type === 'BUY' ? '#83b78c':
-              tx.type === 'SELL' ? '#c15b5b':
-              tx.type === 'add_liq' ? '#83b78c':
-              tx.type === 'remove_liq' ? '#c15b5b':
-              '#ffffff'
-              : '#474646'}">
-          <td class="flow-tab-td">
-            <text style="font-size: 0.9em">{{tx.blockDate | date: 'hh:mm:ss'}}</text>
-          </td>
+    <tr class="flow-tab-tr" *ngFor="let tx of transactions">
+      <a target="_blank" href="https://etherscan.io/tx/{{tx.hash}}"
+         style="text-decoration:none; font-size: 1.1em"
+         [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">
+        <td class="flow-tab-td">
+          <text style="font-size: 0.9em">{{tx.blockDate | date: 'hh:mm:ss'}}</text>
+        </td>
 
-          <td class="flow-tab-td">
-            <container-element [ngSwitch]="tx.type">
-              <mat-icon *ngSwitchCase="'BUY'" aria-hidden="false" aria-label="BUY"
-                        [ngStyle]="{'color': '#3bbf31'}">trending_up
-              </mat-icon>
-              <mat-icon *ngSwitchCase="'SELL'" aria-hidden="false" aria-label="SELL"
-                        [ngStyle]="{'color': '#c62222'}">trending_down
-              </mat-icon>
-              <mat-icon *ngSwitchCase="'add_liq'" aria-hidden="false" aria-label="ADD_LIQ"
-                        [ngStyle]="{'color': '#3bbf31'}">import_export
-              </mat-icon>
-              <mat-icon *ngSwitchCase="'remove_liq'" aria-hidden="false" aria-label="ADD_LIQ"
-                        [ngStyle]="{'color': '#c62222'}">import_export
-              </mat-icon>
-              <mat-icon *ngSwitchDefault aria-hidden="false" aria-label="ADD_LIQ"
-                        [ngStyle]="{'color': '#3b71c1'}">help
-              </mat-icon>
-            </container-element>
-          </td>
+        <td class="flow-tab-td">
+          <container-element [ngSwitch]="tx.type">
+            <mat-icon *ngSwitchCase="'BUY'" aria-hidden="false" aria-label="BUY"
+                      [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">trending_up
+            </mat-icon>
+            <mat-icon *ngSwitchCase="'SELL'" aria-hidden="false" aria-label="SELL"
+                      [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">trending_down
+            </mat-icon>
+            <mat-icon *ngSwitchCase="'add_liq'" aria-hidden="false" aria-label="ADD_LIQ"
+                      [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">import_export
+            </mat-icon>
+            <mat-icon *ngSwitchCase="'remove_liq'" aria-hidden="false" aria-label="ADD_LIQ"
+                      [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">import_export
+            </mat-icon>
+            <mat-icon *ngSwitchDefault aria-hidden="false" aria-label="ADD_LIQ"
+                      [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">help
+            </mat-icon>
+          </container-element>
+        </td>
 
-          <td class="flow-tab-td" style="min-width: 100px"><b style="font-size: 1.2em">{{tx.amount | number}}</b>
-            <text style="font-size: 0.7em"> {{tx.coin}}</text>
-          </td>
-          <td class="flow-tab-td" style="min-width: 100px"><b style="font-size: 1.2em">{{tx.otherAmount | number}}</b>
-            <text style="font-size: 0.7em"> {{tx.otherCoin}}</text>
-          </td>
-          <td class="flow-tab-td" style="min-width: 60px;">
-            <mat-icon aria-hidden="false" aria-label="Price" [ngStyle]="{'color': '#514f4f'}">forward</mat-icon>
+        <td class="flow-tab-td" style="min-width: 100px"><b style="font-size: 1.2em">{{tx.amount | number}}</b>
+          <text style="font-size: 0.7em"> {{tx.coin}}</text>
+        </td>
+        <td class="flow-tab-td" style="min-width: 100px"><b style="font-size: 1.2em">{{tx.otherAmount | number}}</b>
+          <text style="font-size: 0.7em"> {{tx.otherCoin}}</text>
+        </td>
 
-            <text style="font-size: 0.9em">{{tx.lastPrice}}</text>
-          </td>
-          <td class="flow-tab-td" style="min-width: 30px"></td>
-        </a>
-      </tr>
+        <td class="flow-tab-td" style="min-width: 60px;">
+          <mat-icon aria-hidden="false" aria-label="Price" [ngStyle]="{'color': '#514f4f'}">forward</mat-icon>
+          <container-element [ngSwitch]="tx.confirmed">
+            <mat-icon *ngSwitchCase="false" aria-hidden="false" aria-label="Not valid" [ngStyle]="{'color': '#514f4f'}">highlight_off</mat-icon>
+            <text *ngSwitchCase="true" style="font-size: 0.9em">{{tx.lastPrice}}</text>
+          </container-element>
 
-    </table>
+        </td>
+        <td class="flow-tab-td" style="min-width: 30px"></td>
+      </a>
+    </tr>
+
+  </table>
 
 </perfect-scrollbar>
