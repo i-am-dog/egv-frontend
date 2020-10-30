@@ -1,0 +1,4 @@
+.flow-tab-table, .flow-tab-tr, .flow-tab-td {
+  border-spacing: 2px;
+  border-collapse: collapse;
+}

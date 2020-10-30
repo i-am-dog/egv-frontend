@@ -7,8 +7,11 @@ import {Transaction} from '../../models/transaction';
   styleUrls: ['./flow-tab.component.css']
 })
 export class FlowTabComponent implements OnInit {
-  @Input()  transactions: Transaction[] = [];
-  constructor() { }
+  @Input() transactions: Transaction[] = [];
+  @Input() maxHeight = 800;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

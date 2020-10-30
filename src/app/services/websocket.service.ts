@@ -70,7 +70,6 @@ export class WebsocketService implements OnDestroy {
       return false;
     }
     this.consumers.add(wsConsumer);
-    console.log('Ws consumers: ' + this.consumers.size);
     return true;
   }
 

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {ChartOptions} from '../ChartOptions';
 import {NGXLogger} from 'ngx-logger';
 import {Utils} from '../../utils';
-import {Gas} from '../../models/gas';
 import * as Highcharts from 'highcharts/highstock';
 import {PriceService} from '../../services/price.service';
 import {Price} from '../../models/price';
+import {UniTxComponent} from '../../uniswap/uni-tx/uni-tx.component';
 
 @Component({
   selector: 'app-price-chart',
@@ -13,7 +13,6 @@ import {Price} from '../../models/price';
   styleUrls: ['./price-chart.component.css']
 })
 export class PriceChartComponent implements OnInit {
-  static lastPrice;
   Highcharts: typeof Highcharts = Highcharts; // required
   chartConstructor = 'stockChart'; // optional string, defaults to 'chart'
   chartOptions: Highcharts.Options = ChartOptions.getOptions(); // required
@@ -21,9 +20,10 @@ export class PriceChartComponent implements OnInit {
   oneToOneFlag = true; // optional boolean, defaults to false
   runOutsideAngular = false; // optional boolean, defaults to false
   lastDate = -1;
+  lastUpdatedPrice = 0.0;
 
   chartCallback: Highcharts.ChartCallbackFunction = chart => {
-  }; // optional function, defaults to null
+  } // optional function, defaults to null
 
   constructor(private priceService: PriceService, private log: NGXLogger) {
   }
@@ -34,36 +34,41 @@ export class PriceChartComponent implements OnInit {
     this.chartOptions.series[0].color = '#dddddd';
     this.priceService.getHistoryData().subscribe(data => {
       Utils.loadingOff();
-      this.log.info('data got', data);
+      this.log.info('History of prices loaded, size ', data.length);
       this.addValuesToChart(data);
     }, err => {
       Utils.loadingOff();
     });
 
-    setInterval(() => this.collectLastData(), 10000);
+    setInterval(() => this.collectLastUniTx(), 5000);
+    // setInterval(() => this.collectLastData(), 10000);
   }
 
-  private collectLastData(): void {
+  private collectLastUniTx(): void {
     if (this.lastDate === -1) {
       this.log.info('First data Price not collected');
       return;
     }
-    this.log.info('Collect last data price from ' + new Date(this.lastDate));
-    this.priceService.getLastData(this.lastDate.toString()).subscribe(data => {
-      Utils.loadingOff();
-      this.addValuesToChart(data);
-    }, err => {
-      Utils.loadingOff();
-    });
+    if (UniTxComponent.lastPrice !== this.lastUpdatedPrice) {
+      this.lastUpdatedPrice = UniTxComponent.lastPrice;
+    } else {
+      return;
+    }
+    const priceArr: Price[] = [];
+    const price = new Price();
+    price.price = UniTxComponent.lastPrice;
+    price.acquired = new Date().getTime();
+    price.volume = 0;
+    priceArr.push(price);
+    this.addValuesToChart(priceArr);
   }
 
-  private addValuesToChart(gasInfos: Price[]): void {
-    gasInfos?.forEach(data => {
+  public addValuesToChart(prices: Price[]): void {
+    prices?.forEach(data => {
       if (data.acquired > this.lastDate) {
         this.lastDate = data.acquired;
       }
       this.updateSeries(0, data.price, data.acquired);
-      PriceChartComponent.lastPrice = data.price;
       this.updateFlag = true;
     });
   }

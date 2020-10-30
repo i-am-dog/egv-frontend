@@ -43,3 +43,43 @@ span {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+div.inline { float:left; }
+.clearBoth { clear:both; }
+
+.caption {
+  /*float:left;*/
+  /*width: 50%;*/
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+}
+
+.caption-font {
+  color: #ffffff;
+  font-size: 7em;
+  height: 100px;
+}
+
+.caption-font-small {
+  color: #ffffff;
+  font-size: 2em;
+}
+
+td, tr, table {
+  /*padding: 0;*/
+  /*margin: 0;*/
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.scroller {
+  white-space: pre-line;
+  height: 1200px;
+  overflow-y: hidden;
+  position: relative;
+}

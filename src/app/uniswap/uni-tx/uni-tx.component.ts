@@ -19,7 +19,9 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
   transactionsBig: Transaction[] = [];
   subscribed = false;
 
-  constructor(private ws: WebsocketService, private txHistory: TxHistoryService, private log: NGXLogger) {
+  constructor(private ws: WebsocketService,
+              private txHistory: TxHistoryService,
+              private log: NGXLogger) {
   }
 
   setSubscribed(s: boolean): void {

@@ -1,23 +1,55 @@
-<table style="width: 100%; height: 100%">
-  <tr style="height: 10px">
-    <td style="width: 50%;">
-      <div class="flex-container">
-        <span>Fingerlings</span>
-      </div>
-    </td>
-    <td style="width: 50%;">
-      <div class="flex-container">
-        <span>Whales</span>
-      </div>
-    </td>
-  </tr>
+<table class="live-data-table">
   <tr>
-    <td style="width: 50%;">
+    <td style="width: 50%">
 
-      <app-flow-tab [transactions]="transactions"></app-flow-tab>
+      <table class="live-trades-table">
+
+        <tr>
+          <td style="width: 50%; height: 30px">
+            <div class="flex-container">
+              <span style="font-size: 1.2em; color: #a09c9c">Whales (more than 1000 FARM)</span>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="">
+            <app-flow-tab [transactions]="transactionsBig" [maxHeight]="200"></app-flow-tab>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="width: 50%; height: 30px">
+            <div class="flex-container">
+              <span style="font-size: 1.2em; color: #a09c9c">Fingerlings</span>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="width: 50%;">
+            <app-flow-tab [transactions]="transactions" [maxHeight]="650"></app-flow-tab>
+          </td>
+        </tr>
+
+      </table>
+
     </td>
-    <td style="width: 50%;">
-      <app-flow-tab [transactions]="transactionsBig"></app-flow-tab>
+
+
+
+
+    <td style="width: 50%;" align="center">
+
+      <span style="font-size: 1.5em;">Contracts info coming soon</span>
+
     </td>
+
+
+
   </tr>
 </table>
+
+
+
+
