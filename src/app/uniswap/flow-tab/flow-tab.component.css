@@ -2,3 +2,8 @@
   border-spacing: 2px;
   border-collapse: collapse;
 }
+
+flow-tab-td {
+  /*vertical-align:middle !important;*/
+  /*display: inline;*/
+}

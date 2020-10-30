@@ -72,6 +72,10 @@ td, tr, table {
   /*margin: 0;*/
 }
 
+td {
+  /*vertical-align : middle;*/
+}
+
 table {
   border-spacing: 0;
   border-collapse: collapse;
