@@ -49,15 +49,16 @@ export class PriceChartComponent implements OnInit {
       this.log.info('First data Price not collected');
       return;
     }
-    if (UniTxComponent.lastPrice !== this.lastUpdatedPrice) {
-      this.lastUpdatedPrice = UniTxComponent.lastPrice;
+    if (UniTxComponent.lastTx.lastPrice !== this.lastUpdatedPrice) {
+      this.lastUpdatedPrice = UniTxComponent.lastTx.lastPrice;
     } else {
       return;
     }
     const priceArr: Price[] = [];
     const price = new Price();
-    price.price = UniTxComponent.lastPrice;
-    price.acquired = new Date().getTime();
+    price.price = UniTxComponent.lastTx.lastPrice;
+    price.acquired = UniTxComponent.lastTx.blockDateAdopted.getTime();
+    console.log(UniTxComponent.lastTx);
     price.volume = 0;
     priceArr.push(price);
     this.addValuesToChart(priceArr);

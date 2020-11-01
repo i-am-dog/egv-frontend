@@ -12,10 +12,10 @@ export class AppComponent {
   title = 'ethgasviewer-front';
 
   get lastGas(): number {
-    return UniTxComponent.lastGas;
+    return UniTxComponent.lastTx.lastGas;
   }
 
   get lastPrice(): number {
-    return UniTxComponent.lastPrice;
+    return UniTxComponent.lastTx.lastPrice;
   }
 }

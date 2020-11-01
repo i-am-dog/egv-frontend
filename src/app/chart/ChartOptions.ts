@@ -3,7 +3,7 @@ export class ChartOptions {
     return {
       colors: ['#DDDF0D', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee',
         '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
-      title: {text: 'History of recommended Gas Prices in Gwei', style: {color: '#ffffff', fontSize: '24px' }},
+      title: {text: 'History of recommended Gas Prices in Gwei', style: {color: '#ffffff', fontSize: '24px'}},
       chart: {
         type: 'line',
         height: '600px',
@@ -77,6 +77,7 @@ export class ChartOptions {
 
       plotOptions: {
         line: {
+          stacking: 'normal',
           dataLabels: {
             color: '#CCC'
           },
@@ -96,6 +97,19 @@ export class ChartOptions {
         },
         candlestick: {
           lineColor: 'white'
+        },
+        series: {
+          dataGrouping: {
+            enabled: true,
+            forced: true,
+            approximation: 'high',
+            units: [
+              [
+                'hour',
+                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+              ]
+            ]
+          }
         }
       },
 
@@ -123,6 +137,7 @@ export class ChartOptions {
 
       // scroll charts
       rangeSelector: {
+        enabled: false,
         inputEnabled: false,
         buttons: [{
           type: 'hour',

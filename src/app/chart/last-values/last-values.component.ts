@@ -15,11 +15,11 @@ export class LastValuesComponent implements OnInit {
   }
 
   get lastGas(): string {
-    return UniTxComponent.lastGas?.toFixed(0);
+    return UniTxComponent.lastTx?.lastGas.toFixed(2);
   }
 
   get lastPrice(): string {
-    return UniTxComponent.lastPrice?.toFixed(2);
+    return UniTxComponent.lastTx?.lastPrice.toFixed(2);
   }
 
 }

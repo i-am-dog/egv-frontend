@@ -12,8 +12,7 @@ import {NGXLogger} from 'ngx-logger';
   styleUrls: ['./uni-tx.component.css']
 })
 export class UniTxComponent implements AfterViewInit, WsConsumer {
-  static lastPrice = 0;
-  static lastGas = 0;
+  static lastTx = new Transaction();
   private maxMessages = 500;
   transactions: Transaction[] = [];
   transactionsBig: Transaction[] = [];
@@ -38,7 +37,7 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
       this.log.info('tx data fetched', data);
       data.forEach(tx => {
         Transaction.round(tx);
-        UniTxComponent.lastPrice = tx.lastPrice;
+        UniTxComponent.lastTx = tx;
         if (tx.amount < 1000) {
           this.addInArray(this.transactions, tx);
         } else {
@@ -67,9 +66,8 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
           this.addInArray(this.transactionsBig, tx);
         }
         if (tx.confirmed && tx.lastPrice !== 0) {
-          UniTxComponent.lastPrice = tx.lastPrice;
+          UniTxComponent.lastTx = tx;
         }
-        UniTxComponent.lastGas = tx.lastGas;
       });
   }
 
