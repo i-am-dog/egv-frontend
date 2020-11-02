@@ -7,7 +7,7 @@
          style="text-decoration:none; font-size: 1.1em"
          [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">
         <td class="flow-tab-td">
-          <p style="font-size: 0.9em">{{tx.blockDateAdopted | date: 'hh:mm:ss'}}</p>
+          <p style="font-size: 0.9em">{{tx.blockDateAdopted | date: 'HH:mm:ss'}}</p>
         </td>
 
         <td class="flow-tab-td">
@@ -18,13 +18,13 @@
             <mat-icon *ngSwitchCase="'SELL'" aria-hidden="false" aria-label="SELL"
                       [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">trending_down
             </mat-icon>
-            <mat-icon *ngSwitchCase="'add_liq'" aria-hidden="false" aria-label="ADD_LIQ"
+            <mat-icon *ngSwitchCase="'ADD'" aria-hidden="false" aria-label="ADD_LIQ"
                       [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">import_export
             </mat-icon>
-            <mat-icon *ngSwitchCase="'remove_liq'" aria-hidden="false" aria-label="ADD_LIQ"
+            <mat-icon *ngSwitchCase="'REM'" aria-hidden="false" aria-label="ADD_LIQ"
                       [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">import_export
             </mat-icon>
-            <mat-icon *ngSwitchDefault aria-hidden="false" aria-label="ADD_LIQ"
+            <mat-icon *ngSwitchDefault aria-hidden="false" aria-label="?"
                       [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">help
             </mat-icon>
           </container-element>

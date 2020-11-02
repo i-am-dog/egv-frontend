@@ -19,7 +19,7 @@ export class FlowTabComponent implements OnInit {
   priceGradient(type: string, amount: number, success: boolean): string {
     if (success) {
       switch (type) {
-        case 'add_liq':
+        case 'ADD':
         case 'BUY':
           if (amount > 500) {
             return '#83b78c';
@@ -31,7 +31,7 @@ export class FlowTabComponent implements OnInit {
             return '#4b544c';
           }
         case 'SELL':
-        case 'remove_liq':
+        case 'REM':
           if (amount > 500) {
             return '#c15b5b';
           } else if (amount > 250) {

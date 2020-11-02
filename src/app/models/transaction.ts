@@ -1,4 +1,5 @@
 export class Transaction {
+    id: string;
     type: string;
     coin: string;
     amount: number;
@@ -17,6 +18,7 @@ export class Transaction {
     public static fromJson(data: string): Transaction {
         const jsonData = JSON.parse(data);
         const tx: Transaction = new Transaction();
+        tx.id = jsonData.id;
         tx.type = jsonData.type;
         tx.coin = jsonData.coin;
         tx.amount = jsonData.amount;

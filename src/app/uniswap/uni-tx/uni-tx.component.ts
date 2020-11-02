@@ -17,6 +17,7 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
   transactions: Transaction[] = [];
   transactionsBig: Transaction[] = [];
   subscribed = false;
+  txIds = new Set<string>();
 
   constructor(private ws: WebsocketService,
               private txHistory: TxHistoryService,
@@ -60,6 +61,10 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
     this.subscribed = true;
     this.ws.onMessage('/topic/transactions', (m => Transaction.fromJson(m.body)))
       .subscribe(tx => {
+        if (!this.isUniqTx(tx)) {
+          this.log.error('Not unique', tx);
+          return;
+        }
         if (tx.amount < 1000) {
           this.addInArray(this.transactions, tx);
         } else {
@@ -69,6 +74,17 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
           UniTxComponent.lastTx = tx;
         }
       });
+  }
+
+  private isUniqTx(tx: Transaction): boolean {
+    if (this.txIds.has(tx.id)) {
+      return false;
+    }
+    this.txIds.add(tx.id);
+    if (this.txIds.size > 100_000) {
+      this.txIds = new Set<string>();
+    }
+    return true;
   }
 
   private addInArray(arr: Transaction[], tx: Transaction): void {
