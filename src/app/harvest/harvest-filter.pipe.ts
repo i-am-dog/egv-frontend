@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {HarvestDto} from '../models/harvest-dto';
 
 @Pipe({
@@ -6,11 +6,11 @@ import {HarvestDto} from '../models/harvest-dto';
 })
 export class HarvestFilterPipe implements PipeTransform {
 
-  transform(dtos: HarvestDto[], minUsdAmount: number): HarvestDto[] {
-    if (!dtos || !minUsdAmount) {
+  transform(dtos: HarvestDto[], minUsdAmount: number, vault: string): HarvestDto[] {
+    if (!dtos || (!minUsdAmount && !vault)) {
       return dtos;
     }
-    return dtos.filter(dto => dto.usdAmount > minUsdAmount);
+    return dtos.filter(dto => dto.usdAmount > minUsdAmount && (vault === 'all' || dto.vault === vault));
   }
 
 }

@@ -22,6 +22,9 @@ import { UniswapFilterPipe } from './uniswap/uniswap-filter.pipe';
 import { DashboardLastValuesComponent } from './dashboard/dashboard-last-values/dashboard-last-values.component';
 import { TvlBoxComponent } from './dashboard/tvl-box/tvl-box.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDialogModule} from '@angular/material/dialog';
+import { TvlDialogComponent } from './dashboard/tvl-dialog/tvl-dialog.component';
+import {MatSelectModule} from '@angular/material/select';
 
 declare var require: any;
 
@@ -41,7 +44,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HarvestFilterPipe,
     UniswapFilterPipe,
     DashboardLastValuesComponent,
-    TvlBoxComponent
+    TvlBoxComponent,
+    TvlDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +61,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BrowserAnimationsModule,
     MatCardModule,
     MatTooltipModule,
+    MatDialogModule,
+    MatSelectModule,
     PerfectScrollbarModule,
     MatIconModule,
     AngularEmojisModule

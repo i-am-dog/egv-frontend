@@ -1,8 +1,7 @@
 <perfect-scrollbar class="scroller" [ngStyle]="{'maxHeight': maxHeight+'px'}">
-
   <table class="flow-tab-table">
 
-    <tr class="flow-tab-tr" *ngFor="let dto of dtos | harvestFilter:minAmount">
+    <tr class="flow-tab-tr" *ngFor="let dto of dtos | harvestFilter:minAmount:vaultFilter">
       <a target="_blank" href="https://etherscan.io/tx/{{dto.hash}}"
          style="text-decoration:none; font-size: 1.1em"
          [ngStyle]="{'color': priceGradient(dto.methodName, dto.usdAmount, dto.confirmed)}">

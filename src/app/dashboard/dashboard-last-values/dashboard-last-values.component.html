@@ -8,7 +8,7 @@
 
   <tr>
     <td class="caption-font">{{lastPriceF}}</td>
-    <td class="caption-font">{{allTvlF | number: '1.0-1'}}</td>
+    <td class="caption-font" (click)="openTvlDialog()">{{allTvlF | number: '1.0-1'}}</td>
     <td class="caption-font">{{lastGasF}}</td>
   </tr>
 </table>

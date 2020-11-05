@@ -2,8 +2,10 @@
 
   <tr>
     <td style="width: 50%; height: 30px">
-      <div class="flex-container" style="color: #a09c9c">
+      <div class="flex-container" style=" color: #a09c9c">
+
         <span style="font-size: 1.2em;">Pools</span>
+
 
         <mat-icon #tooltip="matTooltip"
                   matTooltip="Changes in Harvest vaults.
@@ -11,6 +13,19 @@
                   style="margin-left: 5px; font-size: 1.2em;"
                   aria-hidden="false" aria-label="?">help
         </mat-icon>
+
+
+        <div style="font-size: 0.9em; margin-right: 5px;">
+          <mat-form-field class="select-strategy" appearance="none" >
+            <mat-select placeholder="-----------All-----------" [(value)]="vaultFilter">
+              <mat-option value="all">-----------All-----------</mat-option>
+              <mat-option *ngFor="let name of tvlNames" [value]="name">{{name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+
+
 
         <input #harvestDtoFilter type="text"
                placeholder="Show more then..."
@@ -21,7 +36,9 @@
 
   <tr>
     <td style="width: 50%;">
-      <app-harvest-flow-tab [dtos]="dtos" [maxHeight]="850" [minAmount]="+harvestDtoFilter.value"></app-harvest-flow-tab>
+      <app-harvest-flow-tab [dtos]="dtos" [maxHeight]="850"
+                            [minAmount]="+harvestDtoFilter.value"
+      [vaultFilter]="vaultFilter"></app-harvest-flow-tab>
     </td>
   </tr>
 

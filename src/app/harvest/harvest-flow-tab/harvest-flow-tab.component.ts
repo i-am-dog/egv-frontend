@@ -12,6 +12,7 @@ export class HarvestFlowTabComponent implements OnInit {
   @Input() dtos: HarvestDto[] = [];
   @Input() maxHeight = 800;
   @Input() minAmount = 0;
+  @Input() vaultFilter = 'all';
 
   constructor() {
   }

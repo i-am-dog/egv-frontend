@@ -18,6 +18,7 @@ export class HarvestTxComponent implements AfterViewInit, WsConsumer {
   dtos: HarvestDto[] = [];
   subscribed = false;
   txIds = new Set<string>();
+  vaultFilter;
 
   constructor(private ws: WebsocketService,
               private txHistory: TxHistoryService,
@@ -108,5 +109,9 @@ export class HarvestTxComponent implements AfterViewInit, WsConsumer {
     if (arr.length > this.maxMessages) {
       arr.pop();
     }
+  }
+
+  get tvlNames(): IterableIterator<string> {
+    return HarvestTxComponent.harvestTvls.keys();
   }
 }

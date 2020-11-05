@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AppComponent} from '../../app.component';
 import {HarvestTxComponent} from '../../harvest/harvest-tx/harvest-tx.component';
+import {MatDialog} from '@angular/material/dialog';
+import {TvlDialogComponent} from '../tvl-dialog/tvl-dialog.component';
 
 @Component({
   selector: 'app-dashboard-last-values',
@@ -9,7 +11,7 @@ import {HarvestTxComponent} from '../../harvest/harvest-tx/harvest-tx.component'
 })
 export class DashboardLastValuesComponent implements OnInit {
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -39,5 +41,9 @@ export class DashboardLastValuesComponent implements OnInit {
 
   get tvls(): Map<string, number> {
     return HarvestTxComponent.harvestTvls;
+  }
+
+  openTvlDialog(): void {
+    this.dialog.open(TvlDialogComponent);
   }
 }
