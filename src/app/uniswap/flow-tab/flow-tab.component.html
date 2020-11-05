@@ -2,7 +2,7 @@
 
   <table class="flow-tab-table">
 
-    <tr class="flow-tab-tr" *ngFor="let tx of dtos">
+    <tr class="flow-tab-tr" *ngFor="let tx of dtos | uniswapFilter:minAmount">
       <a target="_blank" href="https://etherscan.io/tx/{{tx.hash}}"
          style="text-decoration:none; font-size: 1.1em"
          [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">
@@ -30,22 +30,22 @@
           </container-element>
         </td>
 
-        <td class="flow-tab-td" style="min-width: 140px"><b style="font-size: 1.2em">{{tx.amount | number}}</b>
+        <td class="flow-tab-td" style="min-width: 100px"><b style="font-size: 1.2em">{{tx.amount | number: '1.0-0'}}</b>
           <text style="font-size: 0.7em"> {{tx.coin}}</text>
         </td>
-        <td class="flow-tab-td" style="min-width: 140px"><b style="font-size: 1.2em">{{tx.otherAmount | number}}</b>
+        <td class="flow-tab-td" style="min-width: 100px"><b style="font-size: 1.2em">{{tx.otherAmount | number: '1.0-0'}}</b>
           <text style="font-size: 0.7em"> {{tx.otherCoin}}</text>
         </td>
         <!-- https://raw.githubusercontent.com/saqy/angular-packages/master/projects/angular-emojis/src/lib/emoji.json -->
-        <td class="flow-tab-td" style="vertical-align:bottom;">
-          <container-element [ngSwitch]="tx.type">
+        <td class="flow-tab-td" style="">
+          <container-element [ngSwitch]="checkImportantOwner(tx.owner)">
             <mat-icon *ngSwitchCase="'normal'" aria-hidden="false" aria-label="Price" [ngStyle]="{'color': '#514f4f'}">
               forward
             </mat-icon>
             <mat-icon *ngSwitchCase="'devs'" aria-hidden="false" aria-label="Price" [ngStyle]="{'color': '#c4ad58'}">
               warning
             </mat-icon>
-            <angular-emojis *ngSwitchCase="'doHardWork'" [name]="'tractor'" size="10"></angular-emojis>
+            <angular-emojis *ngSwitchCase="'doHardWork'" [name]="'tractor'" size="20" style="margin-bottom: 10px;"></angular-emojis>
           </container-element>
         </td>
 

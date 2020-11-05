@@ -1,6 +1,7 @@
 export class UniswapDto {
   id: string;
   type: string;
+  owner: string;
   coin: string;
   amount: number;
   otherCoin: string;
@@ -20,6 +21,7 @@ export class UniswapDto {
     const tx: UniswapDto = new UniswapDto();
     tx.id = jsonData.id;
     tx.type = jsonData.type;
+    tx.owner = jsonData.owner;
     tx.coin = jsonData.coin;
     tx.amount = jsonData.amount;
     tx.otherCoin = jsonData.otherCoin;
