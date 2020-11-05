@@ -10,7 +10,7 @@ export class HarvestFilterPipe implements PipeTransform {
     if (!dtos || (!minUsdAmount && !vault)) {
       return dtos;
     }
-    return dtos.filter(dto => dto.usdAmount > minUsdAmount && (vault === 'all' || dto.vault === vault));
+    return dtos.filter(dto => dto.usdAmount > minUsdAmount && (!vault || vault === 'all' || dto.vault === vault));
   }
 
 }
