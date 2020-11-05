@@ -1,0 +1,49 @@
+<perfect-scrollbar class="scroller" [ngStyle]="{'maxHeight': maxHeight+'px'}">
+
+  <table class="flow-tab-table">
+
+    <tr class="flow-tab-tr" *ngFor="let dto of dtos">
+      <a target="_blank" href="https://etherscan.io/tx/{{dto.hash}}"
+         style="text-decoration:none; font-size: 1.1em"
+         [ngStyle]="{'color': priceGradient(dto.methodName, dto.amount, dto.confirmed)}">
+
+        <td class="flow-tab-td">
+          <p style="font-size: 0.9em">{{dto.blockDateAdopted | date: 'HH:mm:ss'}}</p>
+        </td>
+
+        <td class="flow-tab-td">
+          <container-element [ngSwitch]="dto.methodName.toLowerCase()">
+            <mat-icon *ngSwitchCase="'deposit'" aria-hidden="false" aria-label="BUY"
+                      [ngStyle]="{'color': priceGradient(dto.methodName, dto.amount, dto.confirmed)}">trending_up
+            </mat-icon>
+            <mat-icon *ngSwitchCase="'withdraw'" aria-hidden="false" aria-label="SELL"
+                      [ngStyle]="{'color': priceGradient(dto.methodName, dto.amount, dto.confirmed)}">trending_down
+            </mat-icon>
+            <mat-icon *ngSwitchDefault aria-hidden="false" aria-label="?"
+                      [ngStyle]="{'color': priceGradient(dto.methodName, dto.amount, dto.confirmed)}">help
+            </mat-icon>
+          </container-element>
+        </td>
+
+        <td class="flow-tab-td" style="min-width: 100px">
+          <b style="font-size: 1.2em">{{dto.amount | number}}</b>
+          <text style="font-size: 0.7em"> {{dto.vault}}</text>
+        </td>
+
+        <td class="flow-tab-td" style="vertical-align:bottom;">
+          <mat-icon aria-hidden="false" aria-label="Price" [ngStyle]="{'color': '#514f4f'}">forward</mat-icon>
+        </td>
+
+        <td class="flow-tab-td" style="min-width: 60px; vertical-align:middle;">
+          <container-element [ngSwitch]="dto.confirmed">
+            <mat-icon *ngSwitchCase="false" aria-hidden="false" aria-label="Not valid" [ngStyle]="{'color': '#514f4f'}">highlight_off</mat-icon>
+            <b *ngSwitchCase="true" style="font-size: 0.9em; vertical-align:middle;">{{dto.lastTVL | number}}</b>
+          </container-element>
+        </td>
+
+      </a>
+    </tr>
+
+  </table>
+
+</perfect-scrollbar>

@@ -1,21 +1,20 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {WebsocketService} from '../../services/websocket.service';
-import {UniswapDto} from '../../models/uniswapDto';
-import {WsConsumer} from '../../services/ws-consumer';
-import {Utils} from '../../utils';
 import {TxHistoryService} from '../../services/tx-history.service';
 import {NGXLogger} from 'ngx-logger';
 import {AppComponent} from '../../app.component';
+import {HarvestDto} from '../../models/harvest-dto';
+import {WsConsumer} from '../../services/ws-consumer';
+import {Utils} from '../../utils';
 
 @Component({
-  selector: 'app-uni-tx',
-  templateUrl: './uni-tx.component.html',
-  styleUrls: ['./uni-tx.component.css']
+  selector: 'app-harvest-tx',
+  templateUrl: './harvest-tx.component.html',
+  styleUrls: ['./harvest-tx.component.css']
 })
-export class UniTxComponent implements AfterViewInit, WsConsumer {
+export class HarvestTxComponent implements AfterViewInit, WsConsumer {
   private maxMessages = 500;
-  dtos: UniswapDto[] = [];
-  dtosWhales: UniswapDto[] = [];
+  dtos: HarvestDto[] = [];
   subscribed = false;
   txIds = new Set<string>();
 
@@ -24,13 +23,13 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
               private log: NGXLogger) {
   }
 
-  private static saveLastValue(tx: UniswapDto): void {
-    if (!tx.confirmed || tx.lastPrice === 0) {
+  private static saveLastValue(tx: HarvestDto): void {
+    if (!tx.confirmed) {
       return;
     }
-    AppComponent.lastPrice = tx.lastPrice;
-    AppComponent.lastGas = tx.lastGas;
-    AppComponent.lastBlockDateAdopted = tx.blockDateAdopted;
+    if (tx.lastGas != null && tx.lastGas !== 0) {
+      AppComponent.lastGas = tx.lastGas;
+    }
   }
 
   setSubscribed(s: boolean): void {
@@ -42,17 +41,13 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
   }
 
   ngAfterViewInit(): void {
-    this.txHistory.getUniswapTxHistoryData().subscribe(data => {
+    this.txHistory.getHarvestTxHistoryData().subscribe(data => {
       Utils.loadingOff();
-      this.log.info('tx data fetched', data);
+      this.log.info('harvest data fetched', data);
       data.forEach(tx => {
-        UniswapDto.round(tx);
-        UniTxComponent.saveLastValue(tx);
-        if (tx.amount < 1000) {
-          this.addInArray(this.dtos, tx);
-        } else {
-          this.addInArray(this.dtosWhales, tx);
-        }
+        HarvestDto.round(tx);
+        HarvestTxComponent.saveLastValue(tx);
+        this.addInArray(this.dtos, tx);
       });
     }, err => {
       Utils.loadingOff();
@@ -68,22 +63,18 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
 
   public subscribeToTopic(): void {
     this.subscribed = true;
-    this.ws.onMessage('/topic/transactions', (m => UniswapDto.fromJson(m.body)))
+    this.ws.onMessage('/topic/harvest', (m => HarvestDto.fromJson(m.body)))
       .subscribe(tx => {
         if (!this.isUniqTx(tx)) {
           this.log.error('Not unique', tx);
           return;
         }
-        if (tx.amount < 1000) {
-          this.addInArray(this.dtos, tx);
-        } else {
-          this.addInArray(this.dtosWhales, tx);
-        }
-        UniTxComponent.saveLastValue(tx);
+        this.addInArray(this.dtos, tx);
+        HarvestTxComponent.saveLastValue(tx);
       });
   }
 
-  private isUniqTx(tx: UniswapDto): boolean {
+  private isUniqTx(tx: HarvestDto): boolean {
     if (this.txIds.has(tx.id)) {
       return false;
     }
@@ -94,7 +85,8 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
     return true;
   }
 
-  private addInArray(arr: UniswapDto[], tx: UniswapDto): void {
+  private addInArray(arr: HarvestDto[], tx: HarvestDto): void {
+    this.log.info('new harvest', tx);
     arr.unshift(tx);
     if (arr.length > this.maxMessages) {
       arr.pop();

@@ -6,6 +6,7 @@ import * as Highcharts from 'highcharts/highstock';
 import {PriceService} from '../../services/price.service';
 import {Price} from '../../models/price';
 import {UniTxComponent} from '../../uniswap/uni-tx/uni-tx.component';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-price-chart',
@@ -49,16 +50,15 @@ export class PriceChartComponent implements OnInit {
       this.log.info('First data Price not collected');
       return;
     }
-    if (UniTxComponent.lastTx.lastPrice !== this.lastUpdatedPrice) {
-      this.lastUpdatedPrice = UniTxComponent.lastTx.lastPrice;
+    if (AppComponent.lastPrice !== this.lastUpdatedPrice) {
+      this.lastUpdatedPrice = AppComponent.lastPrice;
     } else {
       return;
     }
     const priceArr: Price[] = [];
     const price = new Price();
-    price.price = UniTxComponent.lastTx.lastPrice;
-    price.acquired = UniTxComponent.lastTx.blockDateAdopted.getTime();
-    console.log(UniTxComponent.lastTx);
+    price.price = AppComponent.lastPrice;
+    price.acquired = AppComponent.lastBlockDateAdopted.getTime();
     price.volume = 0;
     priceArr.push(price);
     this.addValuesToChart(priceArr);

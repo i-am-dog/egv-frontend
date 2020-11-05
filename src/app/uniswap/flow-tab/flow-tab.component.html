@@ -2,7 +2,7 @@
 
   <table class="flow-tab-table">
 
-    <tr class="flow-tab-tr" *ngFor="let tx of transactions">
+    <tr class="flow-tab-tr" *ngFor="let tx of dtos">
       <a target="_blank" href="https://etherscan.io/tx/{{tx.hash}}"
          style="text-decoration:none; font-size: 1.1em"
          [ngStyle]="{'color': priceGradient(tx.type, tx.amount, tx.confirmed)}">

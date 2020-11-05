@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UniTxComponent} from '../../uniswap/uni-tx/uni-tx.component';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-last-values',
@@ -15,11 +16,11 @@ export class LastValuesComponent implements OnInit {
   }
 
   get lastGas(): string {
-    return UniTxComponent.lastTx?.lastGas.toFixed(2);
+    return AppComponent.lastGas.toFixed(2);
   }
 
   get lastPrice(): string {
-    return UniTxComponent.lastTx?.lastPrice.toFixed(2);
+    return AppComponent.lastPrice.toFixed(2);
   }
 
 }

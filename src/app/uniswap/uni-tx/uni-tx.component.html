@@ -1,54 +1,36 @@
-<table class="live-data-table">
+<table class="live-trades-table">
+
   <tr>
-    <td style="width: 50%">
-
-      <table class="live-trades-table">
-
-        <tr>
-          <td style="width: 50%; height: 30px">
-            <div class="flex-container">
-              <span style="font-size: 1.2em; color: #a09c9c">Whales (more than 1000 FARM)</span>
-            </div>
-          </td>
-        </tr>
-
-        <tr>
-          <td style="">
-            <app-flow-tab [transactions]="transactionsBig" [maxHeight]="200"></app-flow-tab>
-          </td>
-        </tr>
-
-        <tr>
-          <td style="width: 50%; height: 30px">
-            <div class="flex-container">
-              <span style="font-size: 1.2em; color: #a09c9c">Fingerlings</span>
-            </div>
-          </td>
-        </tr>
-
-        <tr>
-          <td style="width: 50%;">
-            <app-flow-tab [transactions]="transactions" [maxHeight]="650"></app-flow-tab>
-          </td>
-        </tr>
-
-      </table>
-
+    <td style="width: 50%; height: 30px">
+      <div class="flex-container">
+        <span style="font-size: 1.2em; color: #a09c9c">Whales (more than 1000 FARM)</span>
+      </div>
     </td>
-
-
-
-
-    <td style="width: 50%;" align="center">
-
-      <span style="font-size: 1.5em; color: #a09c9c">Contracts info coming soon</span>
-
-    </td>
-
-
-
   </tr>
+
+  <tr>
+    <td style="">
+      <app-flow-tab [dtos]="dtosWhales" [maxHeight]="200"></app-flow-tab>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="width: 50%; height: 30px">
+      <div class="flex-container">
+        <span style="font-size: 1.2em; color: #a09c9c">Fingerlings</span>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="width: 50%;">
+      <app-flow-tab [dtos]="dtos" [maxHeight]="650"></app-flow-tab>
+    </td>
+  </tr>
+
 </table>
+
+
 
 
 

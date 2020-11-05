@@ -1,13 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UniswapDto} from '../../models/uniswapDto';
+import {HarvestDto} from '../../models/harvest-dto';
 
 @Component({
-  selector: 'app-flow-tab',
-  templateUrl: './flow-tab.component.html',
-  styleUrls: ['./flow-tab.component.css']
+  selector: 'app-harvest-flow-tab',
+  templateUrl: './harvest-flow-tab.component.html',
+  styleUrls: ['./harvest-flow-tab.component.css']
 })
-export class FlowTabComponent implements OnInit {
-  @Input() dtos: UniswapDto[] = [];
+export class HarvestFlowTabComponent implements OnInit {
+
+  @Input() dtos: HarvestDto[] = [];
   @Input() maxHeight = 800;
 
   constructor() {
@@ -18,9 +20,8 @@ export class FlowTabComponent implements OnInit {
 
   priceGradient(type: string, amount: number, success: boolean): string {
     if (success) {
-      switch (type) {
-        case 'ADD':
-        case 'BUY':
+      switch (type.toLowerCase()) {
+        case 'deposit':
           if (amount > 500) {
             return '#83b78c';
           } else if (amount > 250) {
@@ -30,8 +31,7 @@ export class FlowTabComponent implements OnInit {
           } else {
             return '#4b544c';
           }
-        case 'SELL':
-        case 'REM':
+        case 'withdraw':
           if (amount > 500) {
             return '#c15b5b';
           } else if (amount > 250) {

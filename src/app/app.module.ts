@@ -15,6 +15,8 @@ import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScroll
 import { FlowTabComponent } from './uniswap/flow-tab/flow-tab.component';
 import { LastValuesComponent } from './chart/last-values/last-values.component';
 import {MatIconModule} from '@angular/material/icon';
+import { HarvestTxComponent } from './harvest/harvest-tx/harvest-tx.component';
+import { HarvestFlowTabComponent } from './harvest/harvest-flow-tab/harvest-flow-tab.component';
 
 declare var require: any;
 
@@ -29,7 +31,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PriceChartComponent,
     UniTxComponent,
     FlowTabComponent,
-    LastValuesComponent
+    LastValuesComponent,
+    HarvestTxComponent,
+    HarvestFlowTabComponent
   ],
   imports: [
     BrowserModule,
