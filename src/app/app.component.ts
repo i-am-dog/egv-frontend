@@ -14,12 +14,4 @@ export class AppComponent {
   public static lastGas = 0;
   public static lastBlockDateAdopted = new Date(0);
   title = 'ethgasviewer-front';
-
-  get lastGas(): number {
-    return AppComponent.lastGas;
-  }
-
-  get lastPrice(): number {
-    return AppComponent.lastPrice;
-  }
 }

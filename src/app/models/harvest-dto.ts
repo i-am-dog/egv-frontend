@@ -10,7 +10,10 @@ export class HarvestDto {
   vault: string;
   lastGas: number;
   lastTVL: number;
+  lastUsdTvl: number;
   ownerCount: number;
+  sharePrice: number;
+  usdAmount: number;
   blockDateAdopted: Date;
   acquired: Date;
 
@@ -27,7 +30,10 @@ export class HarvestDto {
     tx.vault = jsonData.vault;
     tx.lastGas = jsonData.lastGas;
     tx.lastTVL = jsonData.lastTVL;
+    tx.lastUsdTvl = jsonData.lastUsdTvl;
     tx.ownerCount = jsonData.ownerCount;
+    tx.sharePrice = jsonData.sharePrice;
+    tx.usdAmount = jsonData.usdAmount;
     tx.blockDate = jsonData.blockDate;
 
     tx.acquired = new Date();

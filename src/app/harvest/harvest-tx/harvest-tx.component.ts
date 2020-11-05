@@ -13,6 +13,7 @@ import {Utils} from '../../utils';
   styleUrls: ['./harvest-tx.component.css']
 })
 export class HarvestTxComponent implements AfterViewInit, WsConsumer {
+  public static harvestTvls = new Map<string, number>();
   private maxMessages = 500;
   dtos: HarvestDto[] = [];
   subscribed = false;
@@ -21,13 +22,29 @@ export class HarvestTxComponent implements AfterViewInit, WsConsumer {
   constructor(private ws: WebsocketService,
               private txHistory: TxHistoryService,
               private log: NGXLogger) {
+    HarvestTxComponent.harvestTvls.set('UNI_ETH_DAI', 0);
+    HarvestTxComponent.harvestTvls.set('UNI_ETH_USDC', 0);
+    HarvestTxComponent.harvestTvls.set('UNI_ETH_USDT', 0);
+    HarvestTxComponent.harvestTvls.set('UNI_ETH_WBTC', 0);
+    HarvestTxComponent.harvestTvls.set('WETH', 0);
+    HarvestTxComponent.harvestTvls.set('USDC', 0);
+    HarvestTxComponent.harvestTvls.set('USDT', 0);
+    HarvestTxComponent.harvestTvls.set('DAI', 0);
+    HarvestTxComponent.harvestTvls.set('WBTC', 0);
+    HarvestTxComponent.harvestTvls.set('RENBTC', 0);
+    HarvestTxComponent.harvestTvls.set('CRVRENWBTC', 0);
+    HarvestTxComponent.harvestTvls.set('SUSHI_WBTC_TBTC', 0);
+    HarvestTxComponent.harvestTvls.set('YCRV', 0);
+    HarvestTxComponent.harvestTvls.set('3CRV', 0);
+    HarvestTxComponent.harvestTvls.set('TUSD', 0);
+    HarvestTxComponent.harvestTvls.set('FARM', 0);
   }
 
   private static saveLastValue(tx: HarvestDto): void {
     if (!tx.confirmed) {
       return;
     }
-    if (tx.lastGas != null && tx.lastGas !== 0) {
+    if (tx.lastGas != null && (tx.lastGas + '') !== 'NaN' && tx.lastGas !== 0) {
       AppComponent.lastGas = tx.lastGas;
     }
   }
@@ -86,7 +103,7 @@ export class HarvestTxComponent implements AfterViewInit, WsConsumer {
   }
 
   private addInArray(arr: HarvestDto[], tx: HarvestDto): void {
-    this.log.info('new harvest', tx);
+    HarvestTxComponent.harvestTvls.set(tx.vault, tx.lastUsdTvl);
     arr.unshift(tx);
     if (arr.length > this.maxMessages) {
       arr.pop();

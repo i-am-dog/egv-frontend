@@ -9,6 +9,7 @@ import {UniswapDto} from '../../models/uniswapDto';
 export class FlowTabComponent implements OnInit {
   @Input() dtos: UniswapDto[] = [];
   @Input() maxHeight = 800;
+  @Input() minAmount = 0;
 
   constructor() {
   }
@@ -46,6 +47,16 @@ export class FlowTabComponent implements OnInit {
       return '#474646';
     }
     return '#ffffff';
+  }
+
+  checkImportantOwner(address: string): string {
+    if (address === '0xbed04c43e74150794f2ff5b62b4f73820edaf661') {
+      return 'doHardWork';
+    }
+    if (address === '0x843002b1d545ef7abb71c716e6179570582faa40' || address === '0x49d71131396f23f0bce31de80526d7c025981c4d') {
+      return 'devs';
+    }
+    return 'normal';
   }
 
 }

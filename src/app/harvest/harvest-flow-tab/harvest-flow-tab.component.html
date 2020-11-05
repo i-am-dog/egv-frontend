@@ -2,10 +2,10 @@
 
   <table class="flow-tab-table">
 
-    <tr class="flow-tab-tr" *ngFor="let dto of dtos">
+    <tr class="flow-tab-tr" *ngFor="let dto of dtos | harvestFilter:minAmount">
       <a target="_blank" href="https://etherscan.io/tx/{{dto.hash}}"
          style="text-decoration:none; font-size: 1.1em"
-         [ngStyle]="{'color': priceGradient(dto.methodName, dto.amount, dto.confirmed)}">
+         [ngStyle]="{'color': priceGradient(dto.methodName, dto.usdAmount, dto.confirmed)}">
 
         <td class="flow-tab-td">
           <p style="font-size: 0.9em">{{dto.blockDateAdopted | date: 'HH:mm:ss'}}</p>
@@ -25,9 +25,12 @@
           </container-element>
         </td>
 
-        <td class="flow-tab-td" style="min-width: 100px">
-          <b style="font-size: 1.2em">{{dto.amount | number}}</b>
-          <text style="font-size: 0.7em"> {{dto.vault}}</text>
+        <td class="flow-tab-td" style="min-width: 110px">
+          <b style="font-size: 1.2em">{{dto.usdAmount | number}}$</b>
+        </td>
+
+        <td style="min-width: 100px">
+          <text style="font-size: 0.8em;"> {{dto.vault}}</text>
         </td>
 
         <td class="flow-tab-td" style="vertical-align:bottom;">
@@ -36,8 +39,10 @@
 
         <td class="flow-tab-td" style="min-width: 60px; vertical-align:middle;">
           <container-element [ngSwitch]="dto.confirmed">
-            <mat-icon *ngSwitchCase="false" aria-hidden="false" aria-label="Not valid" [ngStyle]="{'color': '#514f4f'}">highlight_off</mat-icon>
-            <b *ngSwitchCase="true" style="font-size: 0.9em; vertical-align:middle;">{{dto.lastTVL | number}}</b>
+            <mat-icon *ngSwitchCase="false" aria-hidden="false" aria-label="Not valid" [ngStyle]="{'color': '#514f4f'}">
+              highlight_off
+            </mat-icon>
+            <b *ngSwitchCase="true" style="font-size: 0.9em; vertical-align:middle;">{{dto.lastUsdTvl | number}}$</b>
           </container-element>
         </td>
 

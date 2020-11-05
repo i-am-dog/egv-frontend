@@ -30,20 +30,30 @@
           </container-element>
         </td>
 
-        <td class="flow-tab-td" style="min-width: 100px"><b style="font-size: 1.2em">{{tx.amount | number}}</b>
+        <td class="flow-tab-td" style="min-width: 140px"><b style="font-size: 1.2em">{{tx.amount | number}}</b>
           <text style="font-size: 0.7em"> {{tx.coin}}</text>
         </td>
-        <td class="flow-tab-td" style="min-width: 100px"><b style="font-size: 1.2em">{{tx.otherAmount | number}}</b>
+        <td class="flow-tab-td" style="min-width: 140px"><b style="font-size: 1.2em">{{tx.otherAmount | number}}</b>
           <text style="font-size: 0.7em"> {{tx.otherCoin}}</text>
         </td>
-
+        <!-- https://raw.githubusercontent.com/saqy/angular-packages/master/projects/angular-emojis/src/lib/emoji.json -->
         <td class="flow-tab-td" style="vertical-align:bottom;">
-          <mat-icon aria-hidden="false" aria-label="Price" [ngStyle]="{'color': '#514f4f'}">forward</mat-icon>
+          <container-element [ngSwitch]="tx.type">
+            <mat-icon *ngSwitchCase="'normal'" aria-hidden="false" aria-label="Price" [ngStyle]="{'color': '#514f4f'}">
+              forward
+            </mat-icon>
+            <mat-icon *ngSwitchCase="'devs'" aria-hidden="false" aria-label="Price" [ngStyle]="{'color': '#c4ad58'}">
+              warning
+            </mat-icon>
+            <angular-emojis *ngSwitchCase="'doHardWork'" [name]="'tractor'" size="10"></angular-emojis>
+          </container-element>
         </td>
 
         <td class="flow-tab-td" style="min-width: 60px; vertical-align:middle;">
           <container-element [ngSwitch]="tx.confirmed">
-            <mat-icon *ngSwitchCase="false" aria-hidden="false" aria-label="Not valid" [ngStyle]="{'color': '#514f4f'}">highlight_off</mat-icon>
+            <mat-icon *ngSwitchCase="false" aria-hidden="false" aria-label="Not valid" [ngStyle]="{'color': '#514f4f'}">
+              highlight_off
+            </mat-icon>
             <b *ngSwitchCase="true" style="font-size: 0.9em; vertical-align:middle;">{{tx.lastPrice}}</b>
           </container-element>
 

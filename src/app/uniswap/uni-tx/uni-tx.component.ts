@@ -28,9 +28,15 @@ export class UniTxComponent implements AfterViewInit, WsConsumer {
     if (!tx.confirmed || tx.lastPrice === 0) {
       return;
     }
-    AppComponent.lastPrice = tx.lastPrice;
-    AppComponent.lastGas = tx.lastGas;
-    AppComponent.lastBlockDateAdopted = tx.blockDateAdopted;
+    if (tx.lastPrice != null && tx.lastPrice !== 0) {
+      AppComponent.lastPrice = tx.lastPrice;
+    }
+    if (tx.lastGas != null || tx.lastGas !== 0) {
+      AppComponent.lastGas = tx.lastGas;
+    }
+    if (tx.blockDateAdopted != null) {
+      AppComponent.lastBlockDateAdopted = tx.blockDateAdopted;
+    }
   }
 
   setSubscribed(s: boolean): void {

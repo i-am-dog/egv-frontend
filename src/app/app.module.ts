@@ -13,10 +13,15 @@ import {UniTxComponent} from './uniswap/uni-tx/uni-tx.component';
 import {MatCardModule} from '@angular/material/card';
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import { FlowTabComponent } from './uniswap/flow-tab/flow-tab.component';
-import { LastValuesComponent } from './chart/last-values/last-values.component';
 import {MatIconModule} from '@angular/material/icon';
 import { HarvestTxComponent } from './harvest/harvest-tx/harvest-tx.component';
 import { HarvestFlowTabComponent } from './harvest/harvest-flow-tab/harvest-flow-tab.component';
+import {AngularEmojisModule} from 'angular-emojis';
+import { HarvestFilterPipe } from './harvest/harvest-filter.pipe';
+import { UniswapFilterPipe } from './uniswap/uniswap-filter.pipe';
+import { DashboardLastValuesComponent } from './dashboard/dashboard-last-values/dashboard-last-values.component';
+import { TvlBoxComponent } from './dashboard/tvl-box/tvl-box.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 declare var require: any;
 
@@ -31,9 +36,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PriceChartComponent,
     UniTxComponent,
     FlowTabComponent,
-    LastValuesComponent,
     HarvestTxComponent,
-    HarvestFlowTabComponent
+    HarvestFlowTabComponent,
+    HarvestFilterPipe,
+    UniswapFilterPipe,
+    DashboardLastValuesComponent,
+    TvlBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -48,8 +56,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     }),
     BrowserAnimationsModule,
     MatCardModule,
+    MatTooltipModule,
     PerfectScrollbarModule,
-    MatIconModule
+    MatIconModule,
+    AngularEmojisModule
   ],
   providers: [ {
     provide: PERFECT_SCROLLBAR_CONFIG,

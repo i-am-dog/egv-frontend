@@ -1,4 +1,4 @@
-<table class="main-table" style="width: 100%; vertical-align: top;">
+<table class="main-table" style="width: 100%; vertical-align: top; min-height: 100%;">
   <tr style="vertical-align: top;">
 
 
@@ -12,33 +12,47 @@
 
 
     <td style="width: 50%; padding: 0;">
-
-      <table class="price-and-plot-table" style="width: 100%; margin-top: 15px;">
-
-        <tr>
-          <td class="caption-font-small">Gas</td>
-          <td class="caption-font-small">Farm Price</td>
-        </tr>
-        <tr>
-          <td class="caption-font">{{lastGas}}</td>
-          <td class="caption-font">{{lastPrice}}</td>
-        </tr>
-
+      <table class="price-and-plot-table" style="width: 100%;">
         <tr>
           <td colspan="2">
+            <app-dashboard-last-values></app-dashboard-last-values>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 200px; vertical-align: top;">
+            <table style="margin-top: 10px;">
+              <tr><td><app-tvl-box [tvlName]="'UNI_ETH_DAI'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'UNI_ETH_USDC'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'UNI_ETH_USDT'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'UNI_ETH_WBTC'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'WETH'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'USDC'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'USDT'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'DAI'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'WBTC'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'RENBTC'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'CRVRENWBTC'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'SUSHI_WBTC_TBTC'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'YCRV'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'3CRV'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'TUSD'"></app-tvl-box></td></tr>
+              <tr><td><app-tvl-box [tvlName]="'FARM'"></app-tvl-box></td></tr>
+            </table>
+          </td>
+          <td>
             <div style="">
               <app-price-chart></app-price-chart>
             </div>
           </td>
         </tr>
-
       </table>
+
 
     </td>
   </tr>
 
   <tr>
-    <td colspan="2">
+    <td colspan="3">
       <div class="flex-container">
     <span>
       <a href="https://github.com/belbix/egv-backend" style="color: white; margin-right: 10px">Github Repository</a>
